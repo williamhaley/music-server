@@ -1,0 +1,15 @@
+FROM debian
+
+RUN apt update -y && apt install -y build-essential curl git \
+    && curl https://sh.rustup.rs -sSf | sh -s -- -y \
+    && git clone https://github.com/meilisearch/MeiliSearch \
+    && cd MeiliSearch && . $HOME/.cargo/env && rustup update && cargo build --release \
+    && apt purge -y build-essential curl git \
+    && rm -rf /var/lib/apt/lists/* \
+    && cd / \
+    && mv MeiliSearch/target/release/meilisearch /usr/local/bin/ \
+    && rm -rf MeiliSearch \
+    && yes | rustup self uninstall \
+    && rm -rf $HOME/.cargo
+
+CMD /usr/local/bin/meilisearch --db-path /data.ms --http-addr '127.0.0.1:7700'
