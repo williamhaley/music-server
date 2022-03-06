@@ -1,0 +1,24 @@
+.player {
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+  width: 100vw;
+  border-top: 3px solid skyblue;
+  padding: 0.5em 1em;
+}
+
+.hidden {
+  display: none;
+}
+
+.controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  img {
+    cursor: pointer;
+    width: 40px;
+    margin-right: 1em;
+  }
+}
